@@ -5,6 +5,7 @@ namespace App\Warehouses;
 use App\Goods\Flower;
 use App\Product;
 use App\ProductCollection;
+use Doctrine\DBAL\DriverManager;
 
 class Warehouse3 implements iWarehouse
 {
@@ -12,11 +13,23 @@ class Warehouse3 implements iWarehouse
 
     public function __construct()
     {
+        $connectionParams = [
+            'dbname' => 'codelex',
+            'user' => 'janis',
+            'password' => 'Maximus21@',
+            'host' => 'localhost',
+            'driver' => 'pdo_mysql'
+        ];
+        $conn = DriverManager::getConnection($connectionParams);
+
+        $sql = "SELECT * FROM Products";
+        $stmt = $conn->query($sql);
+
         $this->warehouse = new ProductCollection;
 
-        $this->warehouse->add(new Product(new Flower('Tulip'), 10), 150);
-
-        $this->warehouse->add(new Product(new Flower('Iris'), 50), 150);
+        while (($row = $stmt->fetchAssociative()) !== false) {
+            $this->warehouse->add(new Product(new Flower($row['name']), $row['price']), $row['amount']);
+        }
     }
 
     public function getAllStock(): ProductCollection

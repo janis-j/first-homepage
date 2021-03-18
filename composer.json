@@ -11,5 +11,8 @@
       "App\\": "app/"
     }
   },
-  "description": ""
+  "description": "",
+  "require": {
+    "doctrine/orm": "*"
+  }
 }
