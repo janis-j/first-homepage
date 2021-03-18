@@ -15,8 +15,8 @@ class Warehouse3 implements iWarehouse
     {
         $connectionParams = [
             'dbname' => 'codelex',
-            'user' => 'janis',
-            'password' => 'Maximus21@',
+            'user' => '',
+            'password' => '',
             'host' => 'localhost',
             'driver' => 'pdo_mysql'
         ];
